@@ -1,98 +1,167 @@
-{
-    "locations": {
-      "READER001": {"name": "Emergency Room", "floor": "1", "building": "Main"},
-      "READER002": {"name": "Main Pharmacy", "floor": "2", "building": "Main"},
-      "READER003": {"name": "Surgery Ward A", "floor": "3", "building": "Main"},
-      "READER004": {"name": "ICU Wing", "floor": "2", "building": "East"},
-      "READER005": {"name": "Radiology", "floor": "1", "building": "East"},
-      "READER006": {"name": "General Ward A", "floor": "4", "building": "Main"},
-      "READER007": {"name": "General Ward B", "floor": "4", "building": "East"},
-      "READER008": {"name": "Pediatrics", "floor": "3", "building": "East"},
-      "READER009": {"name": "Orthopedics", "floor": "2", "building": "West"},
-      "READER010": {"name": "Laboratory", "floor": "1", "building": "West"}
-    },
-    "nurses": [
-      {
-        "id": "N123",
-        "name": "Sarah Johnson",
-        "department": "ICU",
-        "shift": "morning"
-      },
-      {
-        "id": "N124",
-        "name": "Michael Chen",
-        "department": "Surgery",
-        "shift": "evening"
-      },
-      {
-        "id": "N125",
-        "name": "Emily White",
-        "department": "Emergency",
-        "shift": "night"
-      },
-      {
-        "id": "N126",
-        "name": "David Wilson",
-        "department": "Pediatrics",
-        "shift": "morning"
-      }
-    ],
-    "packages": [
-      {
-        "id": "MED001",
-        "tagnumber": "RFID789012",
-        "type": "Medication",
-        "priority": "high",
-        "createdby_rfidreaderno": "READER002",
-        "createdat": "2024-12-18T08:30:00",
-        "updatedat_rfidreaderno": "READER004",
-        "updatedat": "2024-12-18T09:15:00",
-        "destination": "READER004",
-        "ETA": 45,
-        "status": "delivered",
-        "assignedNurse": "N123"
-      },
-      {
-        "id": "MED002",
-        "tagnumber": "RFID789013",
-        "type": "Lab Sample",
-        "priority": "normal",
-        "createdby_rfidreaderno": "READER010",
-        "createdat": "2024-12-18T09:00:00",
-        "updatedat_rfidreaderno": "READER007",
-        "updatedat": "2024-12-18T09:30:00",
-        "destination": "READER003",
-        "ETA": 30,
-        "status": "lost",
-        "assignedNurse": "N124"
-      },
-      {
-        "id": "MED003",
-        "tagnumber": "RFID789014",
-        "type": "Blood Sample",
-        "priority": "high",
-        "createdby_rfidreaderno": "READER001",
-        "createdat": "2024-12-18T08:15:00",
-        "updatedat_rfidreaderno": "READER010",
-        "updatedat": "2024-12-18T08:45:00",
-        "destination": "READER010",
-        "ETA": 30,
-        "status": "delivered",
-        "assignedNurse": "N125"
-      },
-      {
-        "id": "MED004",
-        "tagnumber": "RFID789015",
-        "type": "Medical Equipment",
-        "priority": "normal",
-        "createdby_rfidreaderno": "READER002",
-        "createdat": "2024-12-18T09:45:00",
-        "updatedat_rfidreaderno": "READER002",
-        "updatedat": "2024-12-18T09:45:00",
-        "destination": "READER008",
-        "ETA": 40,
-        "status": "in_transit",
-        "assignedNurse": "N126"
-      }
-    ]
+[
+  {
+    "id": "MED001",
+    "tagnumber": "RFID422676",
+    "createdBy": "READER001",
+    "createdAt": "2024-12-18T13:53:39.935Z",
+    "destination": "READER005",
+    "lastLocation": "READER005",
+    "updatedAt": "2024-12-18T14:13:39.935Z",
+    "status": "delivered",
+    "assignedNurse": "Sarah Johnson"
+  },
+  {
+    "id": "MED002",
+    "tagnumber": "RFID137909",
+    "createdBy": "READER003",
+    "createdAt": "2024-12-17T19:59:45.200Z",
+    "destination": "READER003",
+    "lastLocation": "READER003",
+    "updatedAt": "2024-12-17T19:59:45.200Z",
+    "status": "in_transit",
+    "assignedNurse": "Sarah Johnson"
+  },
+  {
+    "id": "MED003",
+    "tagnumber": "RFID310247",
+    "createdBy": "READER005",
+    "createdAt": "2024-12-17T16:06:43.927Z",
+    "destination": "READER002",
+    "lastLocation": "READER002",
+    "updatedAt": "2024-12-17T16:26:43.927Z",
+    "status": "delivered",
+    "assignedNurse": "Sarah Johnson"
+  },
+  {
+    "id": "MED004",
+    "tagnumber": "RFID455026",
+    "createdBy": "READER005",
+    "createdAt": "2024-12-17T23:03:21.513Z",
+    "destination": "READER004",
+    "lastLocation": "READER005",
+    "updatedAt": "2024-12-17T23:03:21.513Z",
+    "status": "in_transit",
+    "assignedNurse": "Sarah Johnson"
+  },
+  {
+    "id": "MED005",
+    "tagnumber": "RFID292447",
+    "createdBy": "READER005",
+    "createdAt": "2024-12-18T07:24:14.325Z",
+    "destination": "READER003",
+    "lastLocation": "READER003",
+    "updatedAt": "2024-12-18T07:44:14.325Z",
+    "status": "delivered",
+    "assignedNurse": "Michael Chen"
+  },
+  {
+    "id": "MED006",
+    "tagnumber": "RFID644937",
+    "createdBy": "READER002",
+    "createdAt": "2024-12-18T00:48:23.149Z",
+    "destination": "READER005",
+    "lastLocation": "READER005",
+    "updatedAt": "2024-12-18T01:08:23.149Z",
+    "status": "delivered",
+    "assignedNurse": "Emily White"
+  },
+  {
+    "id": "MED007",
+    "tagnumber": "RFID629152",
+    "createdBy": "READER002",
+    "createdAt": "2024-12-18T04:25:29.656Z",
+    "destination": "READER002",
+    "lastLocation": "READER002",
+    "updatedAt": "2024-12-18T04:45:29.656Z",
+    "status": "delivered",
+    "assignedNurse": "Michael Chen"
+  },
+  {
+    "id": "MED008",
+    "tagnumber": "RFID280555",
+    "createdBy": "READER001",
+    "createdAt": "2024-12-17T16:00:37.556Z",
+    "destination": "READER003",
+    "lastLocation": "READER003",
+    "updatedAt": "2024-12-17T16:20:37.556Z",
+    "status": "delivered",
+    "assignedNurse": "Sarah Johnson"
+  },
+  {
+    "id": "MED009",
+    "tagnumber": "RFID421120",
+    "createdBy": "READER003",
+    "createdAt": "2024-12-17T16:14:01.943Z",
+    "destination": "READER004",
+    "lastLocation": "READER004",
+    "updatedAt": "2024-12-17T16:34:01.943Z",
+    "status": "delivered",
+    "assignedNurse": "Michael Chen"
+  },
+  {
+    "id": "MED010",
+    "tagnumber": "RFID316709",
+    "createdBy": "READER004",
+    "createdAt": "2024-12-18T12:11:20.898Z",
+    "destination": "READER004",
+    "lastLocation": "READER004",
+    "updatedAt": "2024-12-18T12:31:20.898Z",
+    "status": "delivered",
+    "assignedNurse": "Emily White"
+  },
+  {
+    "id": "MED011",
+    "tagnumber": "RFID139881",
+    "createdBy": "READER005",
+    "createdAt": "2024-12-18T06:29:41.197Z",
+    "destination": "READER003",
+    "lastLocation": "READER005",
+    "updatedAt": "2024-12-18T06:29:41.197Z",
+    "status": "in_transit",
+    "assignedNurse": "Sarah Johnson"
+  },
+  {
+    "id": "MED012",
+    "tagnumber": "RFID185699",
+    "createdBy": "READER004",
+    "createdAt": "2024-12-17T22:26:50.691Z",
+    "destination": "READER001",
+    "lastLocation": "READER004",
+    "updatedAt": "2024-12-17T22:26:50.691Z",
+    "status": "in_transit",
+    "assignedNurse": "Emily White"
+  },
+  {
+    "id": "MED013",
+    "tagnumber": "RFID849397",
+    "createdBy": "READER003",
+    "createdAt": "2024-12-18T14:05:18.388Z",
+    "destination": "READER004",
+    "lastLocation": "READER003",
+    "updatedAt": "2024-12-18T14:45:18.388Z",
+    "status": "lost",
+    "assignedNurse": "Michael Chen"
+  },
+  {
+    "id": "MED014",
+    "tagnumber": "RFID281728",
+    "createdBy": "READER003",
+    "createdAt": "2024-12-17T21:04:23.299Z",
+    "destination": "READER004",
+    "lastLocation": "READER003",
+    "updatedAt": "2024-12-17T21:44:23.299Z",
+    "status": "lost",
+    "assignedNurse": "Michael Chen"
+  },
+  {
+    "id": "MED015",
+    "tagnumber": "RFID642453",
+    "createdBy": "READER002",
+    "createdAt": "2024-12-17T21:14:29.997Z",
+    "destination": "READER001",
+    "lastLocation": "READER002",
+    "updatedAt": "2024-12-17T21:14:29.997Z",
+    "status": "in_transit",
+    "assignedNurse": "Sarah Johnson"
   }
+]
