@@ -1,0 +1,98 @@
+{
+    "locations": {
+      "READER001": {"name": "Emergency Room", "floor": "1", "building": "Main"},
+      "READER002": {"name": "Main Pharmacy", "floor": "2", "building": "Main"},
+      "READER003": {"name": "Surgery Ward A", "floor": "3", "building": "Main"},
+      "READER004": {"name": "ICU Wing", "floor": "2", "building": "East"},
+      "READER005": {"name": "Radiology", "floor": "1", "building": "East"},
+      "READER006": {"name": "General Ward A", "floor": "4", "building": "Main"},
+      "READER007": {"name": "General Ward B", "floor": "4", "building": "East"},
+      "READER008": {"name": "Pediatrics", "floor": "3", "building": "East"},
+      "READER009": {"name": "Orthopedics", "floor": "2", "building": "West"},
+      "READER010": {"name": "Laboratory", "floor": "1", "building": "West"}
+    },
+    "nurses": [
+      {
+        "id": "N123",
+        "name": "Sarah Johnson",
+        "department": "ICU",
+        "shift": "morning"
+      },
+      {
+        "id": "N124",
+        "name": "Michael Chen",
+        "department": "Surgery",
+        "shift": "evening"
+      },
+      {
+        "id": "N125",
+        "name": "Emily White",
+        "department": "Emergency",
+        "shift": "night"
+      },
+      {
+        "id": "N126",
+        "name": "David Wilson",
+        "department": "Pediatrics",
+        "shift": "morning"
+      }
+    ],
+    "packages": [
+      {
+        "id": "MED001",
+        "tagnumber": "RFID789012",
+        "type": "Medication",
+        "priority": "high",
+        "createdby_rfidreaderno": "READER002",
+        "createdat": "2024-12-18T08:30:00",
+        "updatedat_rfidreaderno": "READER004",
+        "updatedat": "2024-12-18T09:15:00",
+        "destination": "READER004",
+        "ETA": 45,
+        "status": "delivered",
+        "assignedNurse": "N123"
+      },
+      {
+        "id": "MED002",
+        "tagnumber": "RFID789013",
+        "type": "Lab Sample",
+        "priority": "normal",
+        "createdby_rfidreaderno": "READER010",
+        "createdat": "2024-12-18T09:00:00",
+        "updatedat_rfidreaderno": "READER007",
+        "updatedat": "2024-12-18T09:30:00",
+        "destination": "READER003",
+        "ETA": 30,
+        "status": "lost",
+        "assignedNurse": "N124"
+      },
+      {
+        "id": "MED003",
+        "tagnumber": "RFID789014",
+        "type": "Blood Sample",
+        "priority": "high",
+        "createdby_rfidreaderno": "READER001",
+        "createdat": "2024-12-18T08:15:00",
+        "updatedat_rfidreaderno": "READER010",
+        "updatedat": "2024-12-18T08:45:00",
+        "destination": "READER010",
+        "ETA": 30,
+        "status": "delivered",
+        "assignedNurse": "N125"
+      },
+      {
+        "id": "MED004",
+        "tagnumber": "RFID789015",
+        "type": "Medical Equipment",
+        "priority": "normal",
+        "createdby_rfidreaderno": "READER002",
+        "createdat": "2024-12-18T09:45:00",
+        "updatedat_rfidreaderno": "READER002",
+        "updatedat": "2024-12-18T09:45:00",
+        "destination": "READER008",
+        "ETA": 40,
+        "status": "in_transit",
+        "assignedNurse": "N126"
+      }
+    ]
+  }
