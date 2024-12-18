@@ -133,10 +133,12 @@
                 <thead>
                     <tr>
                         <th>Package ID</th>
-                        <th>Assigned To</th>
                         <th>Created At</th>
-                        <th>Last Location</th>
+                        <th>Assigned To</th>
+                        <th>Deliver To</th>
                         <th>Destination</th>
+                        <th>Last Location</th>
+                        <th>ETA</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -156,6 +158,12 @@
             "READER005": "Radiology"
         };
 
+        const deliveryPersons = [
+            "John Smith",
+            "Maria Garcia",
+            "Alex Wong"
+        ];
+
         const nurses = [
             "Sarah Johnson",
             "Michael Chen",
@@ -163,26 +171,81 @@
             "David Wilson"
         ];
 
+        // Add distances between locations (in meters)
+        const locationDistances = {
+            "READER001": { // Emergency Room
+                "READER002": 150, "READER003": 200, "READER004": 300, "READER005": 250
+            },
+            "READER002": { // Main Pharmacy
+                "READER001": 150, "READER003": 100, "READER004": 200, "READER005": 180
+            },
+            "READER003": { // Surgery Ward A
+                "READER001": 200, "READER002": 100, "READER004": 150, "READER005": 220
+            },
+            "READER004": { // ICU Wing
+                "READER001": 300, "READER002": 200, "READER003": 150, "READER005": 160
+            },
+            "READER005": { // Radiology
+                "READER001": 250, "READER002": 180, "READER003": 220, "READER004": 160
+            }
+        };
+
+        // Store ETAs for each delivery person and destination combination
+        const deliveryETAs = {};
+
+        // Calculate ETA
+        function calculateETA(status, assignedTo, destination) {
+            if (status === 'delivered') return "Delivered";
+            if (status === 'lost') return "N/A";
+            if (status === 'in_transit') {
+                // Create a unique key for this delivery person + destination combination
+                const etaKey = `${assignedTo}-${destination}`;
+                
+                // If we don't have an ETA for this combination yet, generate one
+                if (!deliveryETAs[etaKey]) {
+                    deliveryETAs[etaKey] = Math.floor(Math.random() * 29) + 2; // 2-30 minutes
+                }
+                
+                return `${deliveryETAs[etaKey]} min away`;
+            }
+            return "N/A";
+        }
+
         // Generate random packages
         function generatePackages() {
             return Array.from({ length: 15 }, (_, i) => {
                 const readers = Object.keys(locations);
-                const source = readers[Math.floor(Math.random() * readers.length)];
-                const dest = readers[Math.floor(Math.random() * readers.length)];
-                const isLost = Math.random() < 0.15;
-                const createdAt = new Date(Date.now() - Math.floor(Math.random() * 24 * 60 * 60 * 1000));
+                const source = "READER002"; // Main Pharmacy
                 
-                let status = 'in_transit';
-                let lastLocation = source;
-                let updatedAt = new Date(createdAt);
+                // Get a different location for destination
+                let dest;
+                do {
+                    dest = readers[Math.floor(Math.random() * readers.length)];
+                } while (dest === source);
+                
+                // All packages created from Main Pharmacy within last 48 hours
+                const createdAt = new Date(Date.now() - Math.floor(Math.random() * 48 * 60 * 60 * 1000));
+                
+                // Update time between 5 to 120 minutes after creation
+                const minutesElapsed = Math.floor(Math.random() * 115 + 5); // 5 to 120 minutes
+                const updatedAt = new Date(createdAt.getTime() + (minutesElapsed * 60 * 1000));
+                
+                let status, lastLocation;
 
-                if (isLost) {
+                if (minutesElapsed > 100) {
+                    // Lost if more than 100 minutes have passed
                     status = 'lost';
-                    updatedAt = new Date(createdAt.getTime() + (40 * 60 * 1000));
-                } else if (Math.random() > 0.4) {
+                    const possibleLostLocations = readers.filter(r => r !== source);
+                    lastLocation = possibleLostLocations[Math.floor(Math.random() * possibleLostLocations.length)];
+                } else if (minutesElapsed >= 30 && Math.random() > 0.5) {
+                    // Delivered only if at destination
                     status = 'delivered';
                     lastLocation = dest;
-                    updatedAt = new Date(createdAt.getTime() + (20 * 60 * 1000));
+                } else {
+                    // In transit (5-30 minutes)
+                    status = 'in_transit';
+                    const possibleLocations = readers.filter(r => r !== source && r !== dest);
+                    lastLocation = possibleLocations[Math.floor(Math.random() * possibleLocations.length)];
                 }
 
                 return {
@@ -194,10 +257,16 @@
                     lastLocation: lastLocation,
                     updatedAt: updatedAt,
                     status: status,
-                    assignedNurse: nurses[Math.floor(Math.random() * nurses.length)]
+                    assignedNurse: nurses[Math.floor(Math.random() * nurses.length)],
+                    assignedTo: deliveryPersons[Math.floor(Math.random() * deliveryPersons.length)],
+                    deliverTo: nurses[Math.floor(Math.random() * nurses.length)]
                 };
             });
         }
+        const generatedPackages = generatePackages();
+        const jsonData = JSON.stringify(generatedPackages, null, 2);
+        
+        console.log(jsonData);
 
         // Format date
         function formatDate(date) {
@@ -230,16 +299,20 @@
                         <div>${pkg.id}</div>
                         <div style="color: #666; font-size: 12px;">${pkg.tagnumber}</div>
                     </td>
-                    <td>${pkg.assignedNurse}</td>
                     <td>
                         <div>${formatDate(pkg.createdAt)}</div>
                         <div style="color: #666; font-size: 12px;">${locations[pkg.createdBy]}</div>
                     </td>
+                    <td>${pkg.assignedTo}</td>
+                    <td>${pkg.deliverTo}</td>
+                    <td>${locations[pkg.destination]}</td>
                     <td>
                         <div>${formatDate(pkg.updatedAt)}</div>
                         <div style="color: #666; font-size: 12px;">${locations[pkg.lastLocation]}</div>
                     </td>
-                    <td>${locations[pkg.destination]}</td>
+                    <td>
+                        ${calculateETA(pkg.status, pkg.assignedTo, pkg.destination)}
+                    </td>
                     <td>
                         <span class="status-badge ${getStatusBadgeClass(pkg.status)}">
                             ${pkg.status.charAt(0).toUpperCase() + pkg.status.slice(1)}
@@ -331,7 +404,8 @@
             const filtered = packages.filter(pkg => 
                 pkg.id.toLowerCase().includes(searchTerm) ||
                 pkg.tagnumber.toLowerCase().includes(searchTerm) ||
-                pkg.assignedNurse.toLowerCase().includes(searchTerm) ||
+                pkg.assignedTo.toLowerCase().includes(searchTerm) ||
+                pkg.deliverTo.toLowerCase().includes(searchTerm) ||
                 locations[pkg.destination].toLowerCase().includes(searchTerm)
             );
             updateTable(filtered);
